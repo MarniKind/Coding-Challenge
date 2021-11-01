@@ -5,24 +5,24 @@
 	console.log("--> at json <--")
 </script>
 
+<div class="db-content">
+	<h1>Database Log of JSON</h1>
 
-<h1 style="color: coral;">Database Log of JSON</h1>
-
-<h2 id="person">for peson: </h2>
-<h3 id="items">item amount: </h3>
+	<h2 id="person">For person: </h2>
+	<h3 id="items">Item amount: </h3>
 
 
-<table id="table" border="1" class="dataframe">
-	<thead>
-		<tr style="text-align: right;">
-			<th>ID</th>
-			<th>JSON</th>
-		</tr>
-	</thead>
-	<tbody>
-	</tbody>
-</table>
-
+	<table id="table" border="1" class="dataframe">
+		<thead>
+			<tr style="text-align: right;">
+				<th>ID</th>
+				<th>JSON</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
 <script>
 	var params = new URLSearchParams(location.search);
 	var person = params.get("person");
@@ -37,40 +37,40 @@
 
 	let i = 0;
 
-//   ˅
-if (person) {
-	for(i=0,c=0; i < itemNumber && c < 1000; c++) {
+	//   ˅
+	if (person) {
+		for (i = 0, c = 0; i < itemNumber && c < 1000; c++) {
 
-		for (let j = 0; j < records.length; j++) {
+			for (let j = 0; j < records.length; j++) {
 
-			if (records[j]["person"] == person) {
+				if (records[j]["person"] == person) {
 
-				for (let k = 0; k < data.length; k++) {
+					for (let k = 0; k < data.length; k++) {
 
-					if (records[j]["data_id"] == data[k]["id"]) {
-						var table = document.getElementById("table");
-						var row = table.insertRow(-1);
-						var cell_id = row.insertCell(0);
-						var cell_data = row.insertCell(1);
-						cell_id.innerHTML = data[k]["id"];
-						cell_data.innerHTML = data[k]["json"];
+						if (records[j]["data_id"] == data[k]["id"]) {
+							var table = document.getElementById("table");
+							var row = table.insertRow(-1);
+							var cell_id = row.insertCell(0);
+							var cell_data = row.insertCell(1);
+							cell_id.innerHTML = data[k]["id"];
+							cell_data.innerHTML = data[k]["json"];
 
-						i++;
-						
-					}
-					if (i >= itemNumber) {
+							i++;
+
+						}
+						if (i >= itemNumber) {
 							break;
 						}
 
-				}
+					}
 
-			}
-			if (i >= itemNumber) {
-				break;
+				}
+				if (i >= itemNumber) {
+					break;
+				}
 			}
 		}
 	}
-}
 
 
 </script>

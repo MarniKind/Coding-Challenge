@@ -5,29 +5,32 @@
 	console.log("--- test block ---")
 </script>
 
-<div style="border: solid black;">
-    <form>
+<div class="card">
+    <form class="flex-vert">
 
         <!-- email -->
         <label for="person">
             Person to search for:
-            <input type="text" name="person">
+            <div><input id="person-input" type="text" name="person"></div>
         </label>
 
         <!-- ˅ -->
-        <label for="text">
-            Text
-            <input type="checkbox" value="text" name="type" />
-    </label>
+        <div class="flex-hor">
+            <label for="text">
+                Text
+                <input type="checkbox" value="text" name="type" />
+            </label>
+    
+            <label for="json">
+                JSON
+                <input type="checkbox" value="json" name="type" />
+            </label>
+        </div>        
 
-    <label for="json">
-        JSON
-        <input type="checkbox" value="json" name="type" />
-    </label>
-
-        <button >
+        <button id="btn-go">
         <i class="fas fa-thumbs-up"></i>
-        GO!</button>
+        GO</button>
+
     </form>
 </div>
 <br>

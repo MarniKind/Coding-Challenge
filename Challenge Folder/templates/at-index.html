@@ -3,7 +3,7 @@
 {% block index %}
 
 <!-- ˅ -->
-<link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}"/>
+<!-- <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}"/>
 <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
 <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -18,77 +18,119 @@
 <script defer src="{{ url_for('static', filename='scripts/fontawesome/fontawesome.min.js') }}"></script>
 
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script> -->
 
 <script>
   console.log("---> index <---")
+  $(document).ready(() => {
+    let inputEl = $("#items");
+    let decrementEl = $("#decrement");
+    let incrementEl = $("#increment");
+
+    inputEl.keydown((event) => {
+      if (event.keyCode == 13) {
+        $('#go').click();
+      }
+    });
+
+    decrementEl.click(() => {
+      value = parseInt(inputEl.val()) - 1;
+      inputEl.val(Math.max(0, value));
+    });
+
+    incrementEl.click(() => {
+      inputEl.val(parseInt(inputEl.val()) + 1);
+    });
+
+    $("#btn-go").click(() => {
+      items_value = $('#items').val()
+      location.assign(`/test/${items_value}?person=james`);
+      $('#coding-time').show();
+      $(window).scroll((event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        window.scrollTo(0, 0);
+        return false;
+      })
+    });
+
+  });
 </script>
 
-<hr>
-
-  <form>
+<div class="card">
+  <form id="test-qty-form" class="flex-vert">
     <label for="items">
-        Quantity of data items to test with:
-        <input id="items" type="number" name="items" 
-    onkeydown="if(event.keyCode == 13){document.getElementById('go').click()}">
+      Quantity of data items to test with
     </label>
 
-    <button id="go" type="button" onclick="
-      location.assign('/test/' + document.getElementById('items').value +'?person=james');
-      $('#coding-time').show();
-      ">
-    <i class="fas fa-thumbs-up"></i>
-    GO!
-  </button>
-</form>
-
-<hr>
-
-<h2>INSTRUCTIONS</h2>
-
-<p>Please fix the codebase anyway you see fit to improve the following:</p>
-<ul>
-  <li>Code efficiency</li>
-  <li>Code security</li>
-  <li>Code cleanliness/ readability/ scallability</li>
-</ul>
-<p>You will recieve an efficiency score at the bottom of the screen based on the following:</p>
-<ul>
-  <li>Returning "10" data items of type "JSON" from the database that match the person "james"</li>
-</ul>
-
-  <p>Here are the steps when you are ready to launch the speed test:   .</p>
-<ol>
-  <li>enter the number of items to return below and hit GO!</li>
-  <li>on the next screen enter the name of the person, the type of data and hit GO!</li>
-  <li>once the page is finished loading the score will appear as a popup at the bottom of the screen.</li>
-</ol>
-
-<p>take a screenshot of the test score and email it to me with a reponse indicating that you have complete the challenge. include the link to the github account that you will be using to submit your pull request on the code.
-</p>
-
-<strong>Remember that you need to give your IP address so that I can white list it for you to acces the database.</strong>
-
-<hr>
-
-<h2>ADDITTIONAL INFORMATION</h2>
-
-  <p>here is the list of persons in the database for reference</p>
-  <ul>
-    <li>james</li>
-    <li>ben</li>
-    <li>bob</li>
-    <li>beca</li>
-    <li>beth</li>
-  </ul>
-
-  <p>here is the schema of the data base:</p>
-
-  <ul>
-    <li>CREATE TABLE data(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, text TEXT, json TEXT);</li>
-    <li>CREATE TABLE records(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, person TEXT, data_id INT REFERENCES data);</li>
-  </ul>
+    <div id="number-input">
+      <span id="decrement">-</span>
+      <input id="items" type="number" name="items" value="0" min="0">
+      <span id="increment">+</span>
+    </div>
 
 
+    <button id="btn-go" type="button">
+      <i class="fas fa-thumbs-up"></i>
+      GO
+    </button>
+  </form>
+</div>
+
+<div class="content">
+  <div class="row">
+    <div class="column">
+      <h2>INSTRUCTIONS</h2>
+
+      <p>Please fix the codebase anyway you see fit to improve the following:</p>
+      <ul>
+        <li>Code efficiency</li>
+        <li>Code security</li>
+        <li>Code cleanliness/ readability/ scalability</li>
+      </ul>
+      <p>You will recieve an efficiency score at the bottom of the screen based on the following:</p>
+      <ul>
+        <li>Returning "10" data items of type "JSON" from the database that match the person "james"</li>
+      </ul>
+
+      <p>Here are the steps when you are ready to launch the speed test: .</p>
+      <ol>
+        <li>Enter the number of items to return below and hit GO!</li>
+        <li>On the next screen enter the name of the person, the type of data and hit GO!</li>
+        <li>Once the page is finished loading the score will appear as a pop-up at the bottom of the screen.</li>
+      </ol>
+
+      <p>Take a screenshot of the test score and email it to me with a reponse indicating that you have completed the
+        challenge. Include the link to the github account that you will be using to submit your pull request on the
+        code.
+      </p>
+
+      <strong>Remember that you need to provide your IP address so that I can white list it for you to access the
+        database.</strong>
+    </div>
+
+    <div class="column">
+      <h2>ADDITIONAL INFORMATION</h2>
+
+      <p>Here is the list of persons in the database for reference</p>
+      <ul>
+        <li>james</li>
+        <li>ben</li>
+        <li>bob</li>
+        <li>beca</li>
+        <li>beth</li>
+      </ul>
+
+      <p>Here is the schema of the database:</p>
+
+      <ul>
+        <li>CREATE TABLE data(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, text TEXT, json TEXT);</li>
+        <li>CREATE TABLE records(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, person TEXT, data_id INT REFERENCES
+          data);
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 {% endblock index %}
